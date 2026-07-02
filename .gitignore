@@ -1,0 +1,15 @@
+cat > .gitignore << 'EOF'
+# Ambienti virtuali
+.venv/
+venv/
+
+# Cache Python
+__pycache__/
+*.pyc
+
+# File sensibili
+.env
+
+# File di sistema Mac
+.DS_Store
+EOF
