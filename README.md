@@ -116,7 +116,7 @@ Contains all the prompts used to guide the LLM agents:
 
 ### 📈 `results/`
 Contains the experimental results obtained with the 8 LLM configurations (C1–C8), split into two subfolders based on the dataset used:
-- **`dataset_261/`** — results obtained on the refined dataset of 262 prompts (`SCOPE_results_C1.csv` → `SCOPE_results_C8.csv`)
+- **`dataset_262/`** — results obtained on the refined dataset of 262 prompts (`SCOPE_results_C1.csv` → `SCOPE_results_C8.csv`)
 - **`dataset_360/`** — results obtained on the original dataset of 360 prompts (`SCOPE_results_C1.csv` → `SCOPE_results_C8.csv`)
 
 ### Main Files
