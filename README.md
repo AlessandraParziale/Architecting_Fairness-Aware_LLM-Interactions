@@ -1,13 +1,22 @@
-# 🤖 Autonomous and Self-Adaptive Systems — Replication Package
+# Architecting Fairness-Aware LLM Interactions
 
-This repository is the **replication package** of the [Autonomous-and-Self-Adaptive-Systems] project.
+This repository is the **replication package** for the paper *"Architecting Fairness-Aware LLM Interactions"*.
 
-The project proposes a **fully automated multi-agent framework** that identifies and iteratively corrects ethical violations in LLM-generated responses by combining operational ethical guidelines with a progressive response-refinement process.
----
+The paper proposes a **fairness-assurance architecture** for LLM-based interactions, grounded in three reusable design patterns and instantiated as a fully automated **multi-agent framework** that evaluates and iteratively refines LLM-generated responses against a set of ethical guidelines before delivery.
 
 ## 📖 Project Overview
 
-The framework is structured around **three agents**:
+### Architectural Design Patterns
+
+The architecture is grounded in three reusable design patterns, each addressing a complementary concern of interaction-time fairness assurance:
+
+- **Decontextualized Fairness Assessment** — separates response generation from fairness evaluation through an independent evaluator.
+- **Iterative Fairness Repair** — introduces a closed feedback loop that progressively revises responses.
+- **Heterogeneous Fairness Validation** — assigns different roles in the pipeline to different LLM families.
+
+### Agents
+
+These patterns are operationalized through **three agents**:
 
 - 🗣️ **LLMUser** — generates the initial response to the user's request
 - ⚖️ **LLMJudge** — evaluates the generated response against a set of ethical guidelines
@@ -15,17 +24,34 @@ The framework is structured around **three agents**:
 
 The process is iterative: the refined response is re-evaluated by the LLMJudge, and the cycle continues until the response is classified as `SAFE`, at which point it is returned to the user.
 
+
 ### Ethical Guidelines
 
 The adopted 15 ethical guidelines were manually extracted from the *OpenAI Usage Policies* (updated in 2025) and the *Anthropic Claude Constitution* (updated in 2026) and are available in the `guidelines` folder.
+
 
 ### Dataset and Stress Testing
 
 The evaluation was conducted on the **SCOPE** dataset (Stereotype-COnditioned Prompts for Evaluation), from which a balanced sample of **360 prompts** was extracted. To ensure the prompts were capable of eliciting problematic responses, an iterative *stress testing* procedure was conducted using a fourth agent, the **LLMStressTester**, which progressively rewrote the prompts for up to 5 iterations, producing a refined dataset of **262 prompts**.
 
+
 ### Experimental Configurations
 
-The framework was evaluated using two LLM families — **GPT (GPT-4o mini)** and **Claude (Claude Haiku 4.5)** — across **8 experimental configurations**, distinguished between *Within-Family* evaluations (all agents from the same family) and *Cross-Family* evaluations (agents from different families).
+The framework was evaluated using two LLM families — **GPT (GPT-4o mini)** and **Claude (Claude Haiku 4.5)** — across **8 experimental configurations** (C1–C8), distinguishing *Within-Family* configurations (all agents from the same family) from *Cross-Family* configurations (agents from different families):
+
+| Configuration | LLMUser | LLMJudge | LLMRefiner | Category |
+|---|---|---|---|---|
+| C1 | GPT | GPT | GPT | Within-Family |
+| C2 | Claude | Claude | Claude | Within-Family |
+| C3 | GPT | GPT | Claude | Cross-Family |
+| C4 | GPT | Claude | GPT | Cross-Family |
+| C5 | Claude | GPT | GPT | Cross-Family |
+| C6 | Claude | Claude | GPT | Cross-Family |
+| C7 | Claude | GPT | Claude | Cross-Family |
+| C8 | GPT | Claude | Claude | Cross-Family |
+
+Each configuration was run separately on the same set of prompts, using the multi-agent framework to generate, evaluate, and, when necessary, refine each response according to the 15 ethical guidelines.
+
 ---
 
 ## 📂 Repository Structure
