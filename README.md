@@ -4,7 +4,7 @@ This repository is the **replication package** for the paper *"Architecting Fair
 
 The paper proposes a **fairness-assurance architecture** for LLM-based interactions, grounded in three reusable design patterns and instantiated as a fully automated **multi-agent framework** that evaluates and iteratively refines LLM-generated responses against a set of ethical guidelines before delivery.
 
-## 📖 Project Overview
+## 📖 Paper Overview
 
 ### Architectural Design Patterns
 
